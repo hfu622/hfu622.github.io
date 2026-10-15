@@ -1,279 +1,132 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>你的名字 · 个人主页</title>
-  <meta name="description" content="你的名字的个人主页：关于我、技能、项目、文章与联系信息。" />
-  <meta name="color-scheme" content="light dark">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f7f2">
+  <meta name="description" content="[姓名]，硕士研究生。关注[研究方向]。">
+  <title>[姓名] — 个人主页</title>
   <style>
-    :root{
-      --bg: #0b1324;            /* 背景 */
-      --panel: #111a33;         /* 卡片背景 */
-      --text: #e7ecf3;          /* 文字 */
-      --muted: #93a1b5;         /* 次要文字 */
-      --brand: #7aa2ff;         /* 品牌色 */
-      --accent: #6ee7b7;        /* 强调色 */
-      --border: #1e2a4a;        /* 边框 */
-      --link: #9db8ff;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    :root {
+      color-scheme: light;
+      --paper: #f7f7f2; --ink: #20241f; --muted: #72776f;
+      --line: #dfe2d9; --accent: #46634e;
+      --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      --sans: Inter, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
     }
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg:#f6f7fb; --panel:#ffffff; --text:#111827; --muted:#6b7280; --brand:#3b82f6; --accent:#10b981; --border:#e5e7eb; --link:#2563eb; --shadow:0 8px 24px rgba(0,0,0,.12);
-      }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.75 var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration-color: #aab4a7; text-underline-offset: 4px; }
+    a:hover { color: var(--accent); text-decoration-color: currentColor; }
+    .wrap { width: min(100% - 48px, 960px); margin-inline: auto; }
+    .topbar { position: sticky; top: 0; z-index: 5; border-bottom: 1px solid color-mix(in srgb, var(--line) 82%, transparent); background: color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter: blur(12px); }
+    .nav { min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .wordmark { font: 17px/1 var(--serif); letter-spacing: .02em; text-decoration: none; }
+    .navlinks { display: flex; gap: clamp(16px, 3vw, 32px); align-items: center; }
+    .navlinks a { color: var(--muted); font-size: 13px; text-decoration: none; }
+    .navlinks a:hover { color: var(--ink); }
+    main { padding-top: 60px; }
+    .eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 22px; color: var(--accent); font-size: 11px; font-weight: 650; letter-spacing: .14em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 22px; height: 1px; background: currentColor; }
+    .hero { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(220px, .75fr); align-items: end; gap: clamp(36px, 8vw, 100px); padding: 36px 0 78px; }
+    h1 { max-width: 660px; margin: 0; font: 400 clamp(42px, 7.2vw, 76px)/1.12 var(--serif); letter-spacing: -.045em; }
+    .lead { max-width: 610px; margin: 24px 0 0; color: #555b53; font-size: clamp(17px, 2vw, 20px); line-height: 1.8; }
+    .lead strong { color: var(--ink); font-weight: 550; }
+    .hero-links { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 30px; font-size: 13px; }
+    .hero-links a { text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+    .hero-links a span { color: var(--accent); margin-left: 5px; }
+    .profile-note { border-left: 1px solid var(--line); padding: 3px 0 3px 22px; color: var(--muted); font-size: 13px; }
+    .profile-note p { margin: 0 0 16px; }
+    .profile-note p:last-child { margin-bottom: 0; }
+    .profile-note b { display: block; margin-bottom: 3px; color: var(--ink); font-size: 12px; font-weight: 600; }
+    .section { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 38px; padding: 34px 0 42px; border-top: 1px solid var(--line); }
+    .section-label { margin: 4px 0 0; font-size: 12px; font-weight: 600; letter-spacing: .04em; }
+    .section-label span { display: block; margin-top: 5px; color: #92978f; font: 12px/1.4 var(--serif); font-style: italic; font-weight: 400; letter-spacing: 0; }
+    .section-body > :first-child { margin-top: 0; }
+    .section-body > :last-child { margin-bottom: 0; }
+    .about { max-width: 650px; margin: 0; color: #555b53; }
+    .interest-list { display: flex; flex-wrap: wrap; gap: 9px; margin: 0; padding: 0; list-style: none; }
+    .interest-list li { border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; color: #555b53; font-size: 12px; }
+    .entry { display: grid; grid-template-columns: 1fr auto; gap: 20px; padding: 0 0 23px; }
+    .entry + .entry { padding-top: 21px; border-top: 1px solid var(--line); }
+    .entry:last-child { padding-bottom: 0; }
+    .entry h3 { margin: 0; font-size: 15px; font-weight: 600; line-height: 1.5; }
+    .entry p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
+    .entry .date { color: #858b82; font: 13px/1.6 var(--serif); white-space: nowrap; }
+    .entry a { text-decoration: none; }
+    .entry a:hover { text-decoration: underline; text-decoration-color: #aab4a7; text-underline-offset: 4px; }
+    .contact { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
+    .contact p { max-width: 460px; margin: 0; color: #555b53; }
+    .contact a { color: var(--accent); font-size: 13px; }
+    footer { display: flex; justify-content: space-between; gap: 20px; padding: 26px 0 36px; border-top: 1px solid var(--line); color: #92978f; font-size: 11px; }
+    @media (max-width: 680px) {
+      .wrap { width: min(100% - 36px, 520px); }
+      .nav { min-height: 60px; }
+      .navlinks { gap: 15px; }
+      .navlinks a { font-size: 12px; }
+      main { padding-top: 42px; }
+      .hero { grid-template-columns: 1fr; gap: 30px; padding: 27px 0 52px; }
+      .profile-note { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-left: 16px; }
+      .profile-note p { margin: 0; }
+      .section { grid-template-columns: 1fr; gap: 18px; padding: 27px 0 32px; }
+      .section-label span { display: inline; margin-left: 8px; }
+      .entry { gap: 10px; }
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";}
-    a{color:var(--link);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .container{max-width:1080px;margin:0 auto;padding:24px}
-    header{position:sticky;top:0;backdrop-filter:saturate(120%) blur(8px);background:color-mix(in oklab, var(--bg) 75%, transparent);border-bottom:1px solid var(--border);z-index:30}
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .nav .left{display:flex;align-items:center;gap:14px}
-    .avatar{width:36px;height:36px;border-radius:50%;border:2px solid var(--border);object-fit:cover}
-    .brand{font-weight:700;letter-spacing:.2px}
-    .nav a{padding:10px 12px;border-radius:12px}
-    .nav a:hover{background:color-mix(in oklab, var(--panel) 80%, transparent)}
-    .theme-toggle{border:1px solid var(--border);background:var(--panel);color:var(--text);padding:8px 12px;border-radius:12px;cursor:pointer}
-
-    /* Hero */
-    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center;padding:48px 0}
-    @media (max-width:900px){.hero{grid-template-columns:1fr}}
-    .hero-card{background:linear-gradient(145deg, color-mix(in oklab, var(--panel) 75%, transparent), transparent);border:1px solid var(--border);border-radius:24px;padding:28px;box-shadow:var(--shadow)}
-    .hero h1{font-size:clamp(28px, 4vw, 44px);line-height:1.15;margin:0 0 12px}
-    .hero p{color:var(--muted);margin:0 0 16px}
-    .chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px dashed var(--border);font-size:12px;color:var(--muted)}
-    .cta{display:flex;gap:12px;margin-top:18px}
-    .btn{padding:10px 14px;border-radius:12px;border:1px solid var(--border);background:var(--panel);color:var(--text);cursor:pointer}
-    .btn.brand{background:var(--brand);border-color:transparent;color:white}
-    .btn.brand:hover{filter:saturate(110%)}
-
-    /* Sections */
-    section{padding:28px 0}
-    .section-title{display:flex;align-items:center;gap:10px;margin:0 0 16px;font-size:20px}
-    .section-title .dot{width:10px;height:10px;border-radius:50%;background:var(--accent)}
-
-    /* Cards grid */
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
-    .col-4{grid-column:span 4}
-    .col-6{grid-column:span 6}
-    .col-8{grid-column:span 8}
-    .col-12{grid-column:span 12}
-    @media (max-width:900px){.col-4,.col-6,.col-8{grid-column:span 12}}
-    .card{background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
-    .card h3{margin:0 0 8px;font-size:18px}
-    .muted{color:var(--muted)}
-    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-    .tag{font-size:12px;padding:4px 8px;border-radius:999px;border:1px solid var(--border)}
-
-    /* Timeline */
-    .timeline{position:relative;margin:8px 0}
-    .timeline::before{content:"";position:absolute;left:10px;top:0;bottom:0;width:2px;background:var(--border)}
-    .tl-item{position:relative;padding-left:28px;margin:14px 0}
-    .tl-item::before{content:"";position:absolute;left:4px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 3px color-mix(in oklab, var(--brand) 30%, transparent)}
-    .tl-item h4{margin:0 0 4px;font-size:16px}
-
-    /* Footer */
-    footer{border-top:1px solid var(--border);padding:24px 0;color:var(--muted);text-align:center}
-
-    /* Smooth anchor offset */
-    :target{scroll-margin-top:90px}
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <div class="left">
-        <img class="avatar" src="https://avatars.githubusercontent.com/u/9919?s=80" alt="avatar" />
-        <div class="brand">你的名字</div>
-      </div>
-      <nav class="right">
-        <a href="#about">关于</a>
-        <a href="#skills">技能</a>
-        <a href="#projects">项目</a>
-        <a href="#posts">文章</a>
-        <a href="#contact">联系</a>
-        <button id="themeToggle" class="theme-toggle" aria-label="切换主题">🌓</button>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="wordmark" href="#home">[姓名]</a>
+      <nav class="navlinks" aria-label="页面导航">
+        <a href="#about">关于</a><a href="#research">研究</a><a href="#work">成果</a><a href="#contact">联系</a>
       </nav>
     </div>
   </header>
-
-  <main class="container">
-    <!-- Hero -->
-    <section class="hero" id="home">
-      <div class="hero-card">
-        <span class="chip">👋 你好，我是 <strong>你的名字</strong></span>
-        <h1>全栈开发者 / 机器学习爱好者</h1>
-        <p>专注于 Web 应用、数据产品与简洁优雅的用户体验设计。目前在研究 <strong>大模型 + 应用工程</strong> 的落地实践。</p>
-        <div class="cta">
-          <a class="btn brand" href="#projects">查看项目</a>
-          <a class="btn" href="#contact">联系我</a>
-        </div>
+  <main class="wrap" id="home">
+    <section class="hero" aria-labelledby="name">
+      <div>
+        <p class="eyebrow">硕士研究生 · [学校 / 院系]</p>
+        <h1 id="name">你好，我是<br>[姓名]。</h1>
+        <p class="lead">我关注<strong>[一句话概括你的研究主题]</strong>，目前在[学校][院系 / 实验室]攻读[专业]硕士学位。</p>
+        <div class="hero-links"><a href="#work">浏览研究与项目 <span>↗</span></a><a href="mailto:your.email@example.com">发送邮件 <span>↗</span></a></div>
       </div>
-      <div class="hero-card">
-        <h3 style="margin-top:0">快速信息</h3>
-        <ul class="muted" style="padding-left:18px;margin:10px 0 0">
-          <li>坐标：上海 / 远程</li>
-          <li>邮箱：you@example.com</li>
-          <li>现职：某科技 · 前端工程师</li>
-          <li>求职意向：全栈 / 前端 / AI 应用</li>
-        </ul>
-        <div class="tags">
-          <span class="tag">JavaScript/TypeScript</span>
-          <span class="tag">Python</span>
-          <span class="tag">React / Vue</span>
-          <span class="tag">Node.js</span>
-          <span class="tag">LLM 应用</span>
-        </div>
+      <aside class="profile-note" aria-label="基本信息">
+        <p><b>研究方向</b>[方向一] · [方向二]</p>
+        <p><b>所在地</b>[城市，中国]</p>
+        <p><b>预计毕业</b>[20XX 年]</p>
+      </aside>
+    </section>
+    <section class="section" id="about">
+      <h2 class="section-label">关于我<span>About</span></h2>
+      <div class="section-body"><p class="about">[用两三句话介绍你的学术背景、正在解决的问题，以及你希望通过研究带来的改变。尽量具体、简洁。]</p></div>
+    </section>
+    <section class="section" id="research">
+      <h2 class="section-label">研究兴趣<span>Research</span></h2>
+      <div class="section-body"><ul class="interest-list"><li>[研究关键词一]</li><li>[研究关键词二]</li><li>[研究关键词三]</li></ul></div>
+    </section>
+    <section class="section" id="work">
+      <h2 class="section-label">研究与项目<span>Selected work</span></h2>
+      <div class="section-body">
+        <article class="entry"><div><h3>[论文 / 课题 / 项目名称]</h3><p>[你负责的工作、使用的方法，以及结果或当前进展。]</p></div><span class="date">[20XX — 至今]</span></article>
+        <article class="entry"><div><h3>[论文 / 课题 / 项目名称]</h3><p>[一句话说明研究问题、你的贡献和成果。]</p><!-- 有论文、代码或项目页面时，将 # 换成真实网址；没有则删除此行。 --><p><a href="#">论文 / 项目页面 ↗</a></p></div><span class="date">[20XX]</span></article>
       </div>
     </section>
-
-    <!-- About -->
-    <section id="about">
-      <h2 class="section-title"><span class="dot"></span> 关于我</h2>
-      <div class="grid">
-        <article class="card col-8">
-          <h3>简介</h3>
-          <p class="muted">我热爱用代码解决问题，偏好以数据驱动与用户导向的方式构建产品。坚信好的产品应当「快速、可靠、好看」。
-          最近在做的事情包括：把 LLM 融入日常工具、改进前后端架构、以及写点技术笔记。</p>
-        </article>
-        <aside class="card col-4">
-          <h3>教育 / 证书</h3>
-          <ul class="muted" style="padding-left:18px;margin:8px 0 0">
-            <li>XX 大学 · 计算机科学 本科</li>
-            <li>阿里云开发者认证</li>
-            <li>深度学习专项课程</li>
-          </ul>
-        </aside>
+    <section class="section" id="education">
+      <h2 class="section-label">教育经历<span>Education</span></h2>
+      <div class="section-body">
+        <article class="entry"><div><h3>[学校名称] · [硕士专业]</h3><p>[院系 / 实验室] · 导师：[导师姓名]</p></div><span class="date">[20XX — 20XX]</span></article>
+        <article class="entry"><div><h3>[学校名称] · [本科专业]</h3><p>[可补充荣誉、交换经历或与研究相关的课程]</p></div><span class="date">[20XX — 20XX]</span></article>
       </div>
     </section>
-
-    <!-- Skills -->
-    <section id="skills">
-      <h2 class="section-title"><span class="dot"></span> 技能栈</h2>
-      <div class="grid">
-        <div class="card col-4">
-          <h3>前端</h3>
-          <p class="muted">HTML5 / CSS3、Tailwind、React、Vue、性能优化、可访问性</p>
-        </div>
-        <div class="card col-4">
-          <h3>后端</h3>
-          <p class="muted">Node.js、Express / Koa、REST / GraphQL、Auth、缓存、消息队列</p>
-        </div>
-        <div class="card col-4">
-          <h3>数据 & AI</h3>
-          <p class="muted">Python、Pandas、FastAPI、向量数据库、RAG、Prompt 设计、部署</p>
-        </div>
-      </div>
+    <section class="section" id="contact">
+      <h2 class="section-label">联系<span>Contact</span></h2>
+      <div class="section-body contact"><p>欢迎交流研究、合作机会，或与[你的研究主题]相关的问题。</p><a href="mailto:your.email@example.com">your.email@example.com ↗</a></div>
     </section>
-
-    <!-- Projects -->
-    <section id="projects">
-      <h2 class="section-title"><span class="dot"></span> 精选项目</h2>
-      <div class="grid">
-        <article class="card col-6">
-          <h3>Project A · LLM 助手</h3>
-          <p class="muted">一款面向团队知识库的智能搜索与问答工具，支持私有部署与权限控制。</p>
-          <div class="tags"><span class="tag">Next.js</span><span class="tag">FastAPI</span><span class="tag">PostgreSQL</span></div>
-          <p><a href="#" aria-label="查看项目 A 详细">查看详情 →</a></p>
-        </article>
-        <article class="card col-6">
-          <h3>Project B · 数据可视化</h3>
-          <p class="muted">用于业务指标的自定义仪表盘，内置图表模板与导出能力。</p>
-          <div class="tags"><span class="tag">Vue 3</span><span class="tag">ECharts</span><span class="tag">Vite</span></div>
-          <p><a href="#" aria-label="查看项目 B 详细">查看详情 →</a></p>
-        </article>
-      </div>
-    </section>
-
-    <!-- Posts -->
-    <section id="posts">
-      <h2 class="section-title"><span class="dot"></span> 最新文章</h2>
-      <div class="grid">
-        <article class="card col-12">
-          <div class="timeline">
-            <div class="tl-item">
-              <h4>把 RAG 做“薄”——轻量知识检索的工程化实践</h4>
-              <div class="muted">2025-07-20 · 架构、向量检索</div>
-            </div>
-            <div class="tl-item">
-              <h4>前端性能优化清单（2025 版）</h4>
-              <div class="muted">2025-05-08 · 前端、性能</div>
-            </div>
-            <div class="tl-item">
-              <h4>从零搭建可观测性：日志、链路与指标</h4>
-              <div class="muted">2025-03-14 · DevOps</div>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact">
-      <h2 class="section-title"><span class="dot"></span> 联系我</h2>
-      <div class="grid">
-        <div class="card col-8">
-          <form id="contactForm" onsubmit="event.preventDefault(); alert('已模拟提交表单，实际可接入后端或表单服务。');">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-              <label>姓名<br><input required name="name" placeholder="你的称呼" style="width:100%"></label>
-              <label>邮箱<br><input required type="email" name="email" placeholder="you@example.com" style="width:100%"></label>
-            </div>
-            <label>留言<br><textarea name="message" rows="5" placeholder="想对我说的话…" style="width:100%"></textarea></label>
-            <div style="display:flex;gap:8px;margin-top:10px">
-              <button class="btn brand" type="submit">发送</button>
-              <button class="btn" type="reset">清空</button>
-            </div>
-          </form>
-        </div>
-        <aside class="card col-4">
-          <h3>社交链接</h3>
-          <ul class="muted" style="padding-left:18px;margin:8px 0 0">
-            <li>GitHub：<a href="#">@yourid</a></li>
-            <li>LinkedIn：<a href="#">your-link</a></li>
-            <li>微博 / 知乎：<a href="#">your-id</a></li>
-          </ul>
-        </aside>
-      </div>
-    </section>
+    <footer><span>© <span id="year"></span> [姓名]</span><span>最后更新：[YYYY.MM]</span></footer>
   </main>
-
-  <footer>
-    <div class="container">© <span id="year"></span> 你的名字 · 保留所有权利</div>
-  </footer>
-
-  <script>
-    // 年份
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // 主题切换（在 <html> 上打补丁的最小实现）
-    const btn = document.getElementById('themeToggle');
-    btn.addEventListener('click',()=>{
-      const dark = document.documentElement.classList.toggle('force-dark');
-      if(dark){
-        document.documentElement.style.setProperty('--bg','#0b1324');
-        document.documentElement.style.setProperty('--panel','#111a33');
-        document.documentElement.style.setProperty('--text','#e7ecf3');
-        document.documentElement.style.setProperty('--muted','#93a1b5');
-        document.documentElement.style.setProperty('--brand','#7aa2ff');
-        document.documentElement.style.setProperty('--accent','#6ee7b7');
-        document.documentElement.style.setProperty('--border','#1e2a4a');
-        document.documentElement.style.setProperty('--link','#9db8ff');
-      }else{
-        // 触发一次媒体查询对应的浅色变量（简化处理：直接写入浅色）
-        document.documentElement.style.setProperty('--bg','#f6f7fb');
-        document.documentElement.style.setProperty('--panel','#ffffff');
-        document.documentElement.style.setProperty('--text','#111827');
-        document.documentElement.style.setProperty('--muted','#6b7280');
-        document.documentElement.style.setProperty('--brand','#3b82f6');
-        document.documentElement.style.setProperty('--accent','#10b981');
-        document.documentElement.style.setProperty('--border','#e5e7eb');
-        document.documentElement.style.setProperty('--link','#2563eb');
-      }
-    });
-
-    // 平滑滚动（原生 CSS 已支持，保留锚点偏移）
-  </script>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>
