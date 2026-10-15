@@ -1,18 +1,18 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f7f2">
-  <meta name="description" content="[姓名]，硕士研究生。关注[研究方向]。">
-  <title>[姓名] — 个人主页</title>
+  <meta name="description" content="[Name], a master's student interested in [research area].">
+  <title>[Name] — Personal Homepage</title>
   <style>
     :root {
       color-scheme: light;
       --paper: #f7f7f2; --ink: #20241f; --muted: #72776f;
-      --line: #dfe2d9; --accent: #46634e;
+      --line: #dfe2d9; --accent: #46634e; --accent-wash: #edf1e9;
       --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-      --sans: Inter, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+      --sans: Inter, "Helvetica Neue", Arial, sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; scroll-padding-top: 88px; }
@@ -27,7 +27,7 @@
     .navlinks a { color: var(--muted); font-size: 13px; text-decoration: none; }
     .navlinks a:hover { color: var(--ink); }
     main { padding-top: 60px; }
-    .eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 22px; color: var(--accent); font-size: 11px; font-weight: 650; letter-spacing: .14em; text-transform: uppercase; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; margin: 0 0 22px; padding: 7px 11px; border-radius: 999px; background: var(--accent-wash); color: var(--accent); font-size: 10px; font-weight: 650; letter-spacing: .12em; text-transform: uppercase; }
     .eyebrow::before { content: ""; width: 22px; height: 1px; background: currentColor; }
     .hero { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(220px, .75fr); align-items: end; gap: clamp(36px, 8vw, 100px); padding: 36px 0 78px; }
     h1 { max-width: 660px; margin: 0; font: 400 clamp(42px, 7.2vw, 76px)/1.12 var(--serif); letter-spacing: -.045em; }
@@ -79,53 +79,46 @@
 <body>
   <header class="topbar">
     <div class="wrap nav">
-      <a class="wordmark" href="#home">[姓名]</a>
-      <nav class="navlinks" aria-label="页面导航">
-        <a href="#about">关于</a><a href="#research">研究</a><a href="#work">成果</a><a href="#contact">联系</a>
+      <a class="wordmark" href="#home">[Name]</a>
+      <nav class="navlinks" aria-label="Page navigation">
+        <a href="#about">About</a><a href="#research">Research</a><a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
   <main class="wrap" id="home">
     <section class="hero" aria-labelledby="name">
       <div>
-        <p class="eyebrow">硕士研究生 · [学校 / 院系]</p>
-        <h1 id="name">你好，我是<br>[姓名]。</h1>
-        <p class="lead">我关注<strong>[一句话概括你的研究主题]</strong>，目前在[学校][院系 / 实验室]攻读[专业]硕士学位。</p>
-        <div class="hero-links"><a href="#work">浏览研究与项目 <span>↗</span></a><a href="mailto:your.email@example.com">发送邮件 <span>↗</span></a></div>
+        <p class="eyebrow">Master's Student · [University / Department]</p>
+        <h1 id="name">Hello, I'm<br>[Name].</h1>
+        <p class="lead">I am interested in <strong>[a concise description of your research]</strong> and pursuing an M.S. in [field] at [university / department / lab].</p>
+        <div class="hero-links"><a href="#research">Research interests <span>↗</span></a><a href="mailto:your.email@example.com">Get in touch <span>↗</span></a></div>
       </div>
-      <aside class="profile-note" aria-label="基本信息">
-        <p><b>研究方向</b>[方向一] · [方向二]</p>
-        <p><b>所在地</b>[城市，中国]</p>
-        <p><b>预计毕业</b>[20XX 年]</p>
+      <aside class="profile-note" aria-label="Profile details">
+        <p><b>Research area</b>[Area one] · [Area two]</p>
+        <p><b>Based in</b>[City, Country]</p>
+        <p><b>Expected graduation</b>[Year]</p>
       </aside>
     </section>
     <section class="section" id="about">
-      <h2 class="section-label">关于我<span>About</span></h2>
-      <div class="section-body"><p class="about">[用两三句话介绍你的学术背景、正在解决的问题，以及你希望通过研究带来的改变。尽量具体、简洁。]</p></div>
+      <h2 class="section-label">About<span>Profile</span></h2>
+      <div class="section-body"><p class="about">[In two or three sentences, introduce your academic background, the question you are exploring, and what you hope your work will contribute. Keep it specific and concise.]</p></div>
     </section>
     <section class="section" id="research">
-      <h2 class="section-label">研究兴趣<span>Research</span></h2>
-      <div class="section-body"><ul class="interest-list"><li>[研究关键词一]</li><li>[研究关键词二]</li><li>[研究关键词三]</li></ul></div>
-    </section>
-    <section class="section" id="work">
-      <h2 class="section-label">研究与项目<span>Selected work</span></h2>
-      <div class="section-body">
-        <article class="entry"><div><h3>[论文 / 课题 / 项目名称]</h3><p>[你负责的工作、使用的方法，以及结果或当前进展。]</p></div><span class="date">[20XX — 至今]</span></article>
-        <article class="entry"><div><h3>[论文 / 课题 / 项目名称]</h3><p>[一句话说明研究问题、你的贡献和成果。]</p><!-- 有论文、代码或项目页面时，将 # 换成真实网址；没有则删除此行。 --><p><a href="#">论文 / 项目页面 ↗</a></p></div><span class="date">[20XX]</span></article>
-      </div>
+      <h2 class="section-label">Research interests<span>Focus</span></h2>
+      <div class="section-body"><ul class="interest-list"><li>[Research keyword one]</li><li>[Research keyword two]</li><li>[Research keyword three]</li></ul></div>
     </section>
     <section class="section" id="education">
-      <h2 class="section-label">教育经历<span>Education</span></h2>
+      <h2 class="section-label">Education<span>Background</span></h2>
       <div class="section-body">
-        <article class="entry"><div><h3>[学校名称] · [硕士专业]</h3><p>[院系 / 实验室] · 导师：[导师姓名]</p></div><span class="date">[20XX — 20XX]</span></article>
-        <article class="entry"><div><h3>[学校名称] · [本科专业]</h3><p>[可补充荣誉、交换经历或与研究相关的课程]</p></div><span class="date">[20XX — 20XX]</span></article>
+        <article class="entry"><div><h3>[University] · [M.S. in Field]</h3><p>[Department / Lab] · Advisor: [Name]</p></div><span class="date">[20XX — 20XX]</span></article>
+        <article class="entry"><div><h3>[University] · [B.S. in Field]</h3><p>[Optional: honors, exchange, or relevant coursework]</p></div><span class="date">[20XX — 20XX]</span></article>
       </div>
     </section>
     <section class="section" id="contact">
-      <h2 class="section-label">联系<span>Contact</span></h2>
-      <div class="section-body contact"><p>欢迎交流研究、合作机会，或与[你的研究主题]相关的问题。</p><a href="mailto:your.email@example.com">your.email@example.com ↗</a></div>
+      <h2 class="section-label">Contact<span>Connect</span></h2>
+      <div class="section-body contact"><p>Feel free to get in touch about research, collaboration, or [your research area].</p><a href="mailto:your.email@example.com">your.email@example.com ↗</a></div>
     </section>
-    <footer><span>© <span id="year"></span> [姓名]</span><span>最后更新：[YYYY.MM]</span></footer>
+    <footer><span>© <span id="year"></span> [Name]</span><span>Last updated: [YYYY.MM]</span></footer>
   </main>
   <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
